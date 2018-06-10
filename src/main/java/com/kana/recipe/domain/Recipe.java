@@ -1,6 +1,7 @@
 package com.kana.recipe.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -17,8 +18,12 @@ public class Recipe {
     private String source;
     private String url;
     private String directions;
+
     // TODO: create enum
     //private Difficulty difficulty;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
 
     @Lob
     private Byte[] image;
@@ -104,5 +109,13 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }
